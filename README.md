@@ -20,8 +20,7 @@ Kyle A. Gervers
 - [Introduction](#introduction)
 - [Git and GitHub](#git-and-github)
 - [Getting started](#getting-started)
-- [Using Git](#using-git)
-- [Using GitHub CLI](#using-github-cli)
+- [Using Git and GitHub CLI](#using-git-and-github-cli)
 - [Reproducibility](#reproducibility)
 
 ## Introduction
@@ -149,7 +148,7 @@ directions](https://github.com/cli/cli#installation) relevant to your
 operating system.
 
 There’s minimal configuration to do, but consider changing the editor to
-nano (my preference).
+`nano` (my preference).
 
     gh config set editor nano
 
@@ -157,9 +156,16 @@ To check the configuration state, run:
 
     gh config list
 
-## Using Git
+## Using Git and GitHub CLI
 
 [Return](#sections)
+
+- [Git](#git)
+- [GitHub](#github)
+
+### Git
+
+[Return](using-git-and-github-cli)
 
 The place where project code is kept is called a repository. In the
 language of Git and GitHub, this is often shortened to `repo`. If I
@@ -168,8 +174,6 @@ here, anyone can download the code by running the following `git`
 command:
 
     git clone https://github.com/gerverska/git-gh-demo.git
-
-### 
 
 Run this, and then `cd` into the directory associated with this repo.
 
@@ -194,7 +198,7 @@ inside the `git-gh-demo` folder. It’s as easy as that.
 
     Initialized empty Git repository in /path/to/git-gh-demo/.git/
 
-I now have a bouncing bay repo.
+I now have a bouncing baby repo.
 
 However, there’s nothing in my repo. Whenever I run `git status` while
 I’m in the `git-gh-demo` folder, I get this:
@@ -213,6 +217,7 @@ I’m in the `git-gh-demo` folder, I get this:
         04-compile/
         05-rarefy/
         06-analyze/
+        README.md
         README.rmd
         README_files/
         code/
@@ -234,9 +239,155 @@ I’ll do just that!
 
     git add .
 
-## Using GitHub CLI
+Instead of specifying a file, I specified `.`. This is the same as
+adding all of the files and folders to this repo. Now when I run
+`git status` I get:
 
-[Return](#sections)
+    On branch main
+
+    No commits yet
+
+    Changes to be committed:
+      (use "git rm --cached <file>..." to unstage)
+        new file:   .adapters
+        new file:   .gitignore
+        new file:   01-demultiplex/README.md
+        new file:   01-demultiplex/logs/R1.html
+        new file:   01-demultiplex/logs/R1_data/multiqc.log
+        new file:   01-demultiplex/logs/R1_data/multiqc_citations.txt
+        new file:   01-demultiplex/logs/R1_data/multiqc_data.json
+        new file:   01-demultiplex/logs/R1_data/multiqc_fastqc.txt
+        new file:   01-demultiplex/logs/R1_data/multiqc_general_stats.txt
+        new file:   01-demultiplex/logs/R1_data/multiqc_sources.txt
+
+Several other files are listed too. If I wanted to undo this `add`,
+`git status` says I could run `git rm .` to unstage, which is good to
+know. I try not to add files that I think might present security
+vulnerabilities, or contain speculation or important information that I
+don’t think other GitHub users should see. If I’m happy with adding all
+these files, the next step is to commit those changes.
+
+    git commit -a
+
+By default, this command commits all of the changes we just added and
+opens up an instance of `nano`:
+
+    GNU nano 6.2
+
+    # Please enter the commit message for your changes. Lines starting
+    # with '#' will be ignored, and an empty message aborts the commit.
+    #
+    # On branch main
+    #
+    # Initial commit
+    #
+    # Changes to be committed:
+    #       new file:   .adapters
+    #       new file:   .gitignore
+    #       new file:   01-demultiplex/README.md
+    #       new file:   01-demultiplex/logs/R1.html
+    #       new file:   01-demultiplex/logs/R1_data/multiqc.log
+    #       new file:   01-demultiplex/logs/R1_data/multiqc_citations.txt
+    #       new file:   01-demultiplex/logs/R1_data/multiqc_data.json
+    #       new file:   01-demultiplex/logs/R1_data/multiqc_fastqc.txt
+    #       new file:   01-demultiplex/logs/R1_data/multiqc_general_stats.txt
+    #       new file:   01-demultiplex/logs/R1_data/multiqc_sources.txt
+    #       new file:   01-demultiplex/logs/R2.html
+
+There’s a note in the `nano` window that asks me to
+`enter the commit message for your changes`. I try to make these commit
+messages short and sweet (10 words or so), while also accurately
+communicating what was changed. Since this is my intial commit, lets
+just write `Initial commit` and write `nano` output.
+
+    [main (root-commit) 51940f6] Initial commit
+     194 files changed, 3216682 insertions(+)
+     create mode 100644 .adapters
+     create mode 100644 .gitignore
+     create mode 100644 01-demultiplex/README.md
+     create mode 100644 01-demultiplex/logs/R1.html
+     create mode 100644 01-demultiplex/logs/R1_data/multiqc.log
+     create mode 100644 01-demultiplex/logs/R1_data/multiqc_citations.txt
+     create mode 100644 01-demultiplex/logs/R1_data/multiqc_data.json
+     create mode 100644 01-demultiplex/logs/R1_data/multiqc_fastqc.txt
+     create mode 100644 01-demultiplex/logs/R1_data/multiqc_general_stats.txt
+     create mode 100644 01-demultiplex/logs/R1_data/multiqc_sources.txt
+     create mode 100644 01-demultiplex/logs/R2.html
+
+When I run `git status` again, I know have this update:
+
+     On branch main
+     nothing to commit, working tree clean
+
+### GitHub CLI
+
+[Return](using-git-and-github-cli)
+
+I’m very close to pushing this repo to GitHub! Because this is my first
+push to GitHub (pretend for this example!), I’ll actually use `gh` from
+the GitHub CLI to do this. You can also create an empty repo through the
+GitHub website that you use `git` to push to, but I think it’s just
+easier to use `gh`.
+
+    gh repo create
+
+This starts an interactive session with `gh`. Answer all the prompts
+accordingly:
+
+    ? What would you like to do?  [Use arrows to move, type to filter]
+      Create a new repository on GitHub from scratch
+    > Push an existing local repository to GitHub
+
+    ? Path to local repository (.)
+
+If you’re in the `git-gh-demo` folder (which you should be if you’re
+following along), just press `Enter`.
+
+    ? Repository name (git-gh-demo)
+
+Press `Enter`
+
+    ? Repository owner  [Use arrows to move, type to filter]
+      SpataforaLab
+    > gerverska
+
+I’ll select myself, but my PI might wish to own this repository.
+
+    ? Description (git-gh-demo) Learning git + gh
+
+    ? Visibility  [Use arrows to move, type to filter]
+    > Public
+      Private
+      Internal
+
+I’ll select `Public` for this exercise, but I might want to select
+`Private` for other repos. I can have as many public repos as I want,
+but private repos are limited for each user by default.
+
+    ✓ Created repository gerverska/git-gh-demo on GitHub
+
+    ? What should the new remote be called? (origin)
+
+Press `Enter`
+
+    ? Would you like to push commits from the current branch to "origin"? Yes
+
+    Enumerating objects: 207, done.
+    Counting objects: 100% (207/207), done.
+    Delta compression using up to 12 threads
+    Compressing objects: 100% (202/202), done.
+    Writing objects: 100% (207/207), 46.31 MiB | 12.47 MiB/s, done.
+    Total 207 (delta 73), reused 0 (delta 0), pack-reused 0
+    remote: Resolving deltas: 100% (73/73), done.
+    To https://github.com/gerverska/git-gh-demo.git
+     * [new branch]      HEAD -> main
+    branch 'main' set up to track 'origin/main'.
+    ✓ Pushed commits to https://github.com/gerverska/git-gh-demo.git
+
+Excellent! I now have a repo that I can view at
+[GitHub.com](https://github.com/gerverska/git-gh-demo)!
+
+## Signing in with GitHub CLI
 
 Run the code below to sign in to GitHub from the command line.
 
