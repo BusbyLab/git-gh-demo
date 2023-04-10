@@ -20,8 +20,10 @@ Kyle A. Gervers
 - [Introduction](#introduction)
 - [Git and GitHub](#git-and-github)
 - [Getting started](#getting-started)
-- [Using Git and GitHub CLI](#using-git-and-github-cli)
-- [Reproducibility](#reproducibility)
+- [Git](#git)
+- [GitHub CLI](#github-cli)
+- [Subsequent pushes](#subsequent-pushes)
+- [The virtuous cycle](#the-virtuous-cycle)
 
 ## Introduction
 
@@ -156,16 +158,9 @@ To check the configuration state, run:
 
     gh config list
 
-## Using Git and GitHub CLI
+## Git
 
 [Return](#sections)
-
-- [Git](#git)
-- [GitHub](#github)
-
-### Git
-
-[Return](using-git-and-github-cli)
 
 The place where project code is kept is called a repository. In the
 language of Git and GitHub, this is often shortened to `repo`. If I
@@ -319,9 +314,9 @@ When I run `git status` again, I know have this update:
      On branch main
      nothing to commit, working tree clean
 
-### GitHub CLI
+## GitHub CLI
 
-[Return](using-git-and-github-cli)
+[Return](#sections)
 
 I’m very close to pushing this repo to GitHub! Because this is my first
 push to GitHub (pretend for this example!), I’ll actually use `gh` from
@@ -387,9 +382,23 @@ Press `Enter`
 Excellent! I now have a repo that I can view at
 [GitHub.com](https://github.com/gerverska/git-gh-demo)!
 
-## Signing in with GitHub CLI
+## Subsequent pushes
 
-Run the code below to sign in to GitHub from the command line.
+[Return](#sections)
+
+Perhaps I make more changes to my code after the intial repo push. After
+running `git add .`, `git commit -a`, and writing my commit message.
+After running `git status`, I can see that my *local* repo (on my
+computer) is ahead of my *remote* repo (on GitHub).
+
+    On branch main
+    Your branch is ahead of 'origin/main' by 1 commit.
+      (use "git push" to publish your local commits)
+
+    nothing to commit, working tree clean
+
+Before I can run `git push` (which is what I’ll use for subsequent
+pushes), I need to refresh my login.
 
     gh auth login
 
@@ -411,8 +420,7 @@ setup.
 
     ? Authenticate Git with your GitHub credentials? (Y/n)
 
-Type `Y`. We’re just trying this out for now, but later this will allow
-you to push your project to GitHub using Git.
+Type `Y`.
 
     ? How would you like to authenticate GitHub CLI?  [Use arrows to move, type to filter]
     > Login with a web browser
@@ -423,7 +431,7 @@ authentication token (fine-grained or classic) if you [set that
 up](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token),
 but just make sure that you keep the token somewhere memorable and safe.
 However, in my opinion, if you want to go the token route, you might as
-well set up an SSH sign in, which we’ll cover later.
+well set up an SSH sign in.
 
     ! First copy your one-time code: 19C2-CD83
     Press Enter to open github.com in your browser...
@@ -436,43 +444,40 @@ browser window should pop up with a place for you to paste your code.
     ✓ Configured git protocol
     ✓ Logged in as gerverska
 
-And I’m logged in! I’ll need to run `gh auth login` whenever I’m ready
-to push my project to GitHub. Once I’m logged in, I should be able to
-push within an hour or so.
+And I’m signed in! Now that I’m signed in, I’ll go ahead and run
+`git push`. If I don’t push soon, I’ll need to run `gh auth login`
+again.
 
-## Reproducibility
+    Enumerating objects: 7, done.
+    Counting objects: 100% (7/7), done.
+    Delta compression using up to 12 threads
+    Compressing objects: 100% (4/4), done.
+    Writing objects: 100% (4/4), 5.20 KiB | 1.04 MiB/s, done.
+    Total 4 (delta 3), reused 0 (delta 0), pack-reused 0
+    remote: Resolving deltas: 100% (3/3), completed with 2 local objects.
+    To https://github.com/gerverska/git-gh-demo.git
+       51940f6..f3e51cb  main -> main
+
+Success! The remove repo on GitHub now reflects the changes made to the
+local repo on my computer.
+
+## The virtuous cycle
 
 [Return](#sections)
 
-All packages were installed and managed with `conda`. These packages
-aren’t too relevant for this demo, but they’re listed here for
-completeness.
+90% of my experience with Git and GitHub looks like this!
 
-    conda 23.3.1
-    name: /home/gerverska/projects/git-gh-demo/env
-    channels:
-      - conda-forge
-      - bioconda
-      - defaults
-    dependencies:
-      - atropos=1.1.31
-      - bioconductor-dada2=1.26.0
-      - cutadapt=4.2
-      - fastqc=0.11.9
-      - itsx=1.1.3
-      - multiqc=1.13
-      - pheniqs=2.1.0
-      - r-base=4.2.2
-      - r-caret=6.0_93
-      - r-dplyr=1.0.10
-      - r-markdown=1.4
-      - r-remotes=2.4.2
-      - r-rmarkdown=2.20
-      - r-vegan=2.6_4
-      - vsearch=2.22.1
-    prefix: /home/gerverska/projects/git-gh-demo/env
+    git status
+    git add .
+    git status
+    git commit -a
+    git status
+    gh auth login
+    git push
+    git status
 
-Install the above bioinformatic environment from `config.yml` using the
-script `00-build.sh`
+As long as you’re running `git status` (and reading the output), you
+shouldn’t get too surprised! When in doubt take it slow.
 
-    bash code/00-build.sh
+I’ll update this repo with more information on what to do when you want
+to access an earlier version of repo!

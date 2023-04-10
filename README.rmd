@@ -19,7 +19,8 @@ knitr::opts_chunk$set(echo = F, include = F)
 * [Getting started](#getting-started)
 * [Git](#git)
 * [GitHub CLI](#github-cli)
-* [Subsequent pushes](subsequent-pushes)
+* [Subsequent pushes](#subsequent-pushes)
+* [The virtuous cycle](#the-virtuous-cycle)
 
 ## Introduction
 [Return](#sections)
@@ -307,8 +308,17 @@ branch 'main' set up to track 'origin/main'.
 Excellent! I now have a repo that I can view at [GitHub.com](https://github.com/gerverska/git-gh-demo)!
 
 ## Subsequent pushes
+[Return](#sections)
 
-Perhaps I make more changes to my code after the intial repo push. After running `git add .`, `git commit -a`, and writing my commit message, I fnext need to refresh my login.
+Perhaps I make more changes to my code after the intial repo push. After running `git add .`, `git commit -a`, and writing my commit message. After running `git status`, I can see that my *local* repo (on my computer) is ahead of my *remote* repo (on GitHub).
+```
+On branch main
+Your branch is ahead of 'origin/main' by 1 commit.
+  (use "git push" to publish your local commits)
+
+nothing to commit, working tree clean
+```
+Before I can run `git push` (which is what I'll use for subsequent pushes), I need to refresh my login.
 ```
 gh auth login
 ```
@@ -343,7 +353,7 @@ For now, select `Login with a web browser`. You can choose to paste an authentic
 ! First copy your one-time code: 19C2-CD83
 Press Enter to open github.com in your browser...
 ```
-After copying the code, press `Enter`. A GitHub tab in your default browser window should pop up with a place for you to paste your code. I use the SMS two-factor authentication for this step, so your experience may differ.
+After copying the code, press `Enter`. A GitHub tab in your default browser window should pop up with a place for you to paste your code.
 
 ```
 ✓ Authentication complete.
@@ -351,4 +361,37 @@ After copying the code, press `Enter`. A GitHub tab in your default browser wind
 ✓ Configured git protocol
 ✓ Logged in as gerverska
 ```
+
 And I'm signed in! Now that I'm signed in, I'll go ahead and run `git push`. If I don't push soon, I'll need to run `gh auth login` again.
+```
+Enumerating objects: 7, done.
+Counting objects: 100% (7/7), done.
+Delta compression using up to 12 threads
+Compressing objects: 100% (4/4), done.
+Writing objects: 100% (4/4), 5.20 KiB | 1.04 MiB/s, done.
+Total 4 (delta 3), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (3/3), completed with 2 local objects.
+To https://github.com/gerverska/git-gh-demo.git
+   51940f6..f3e51cb  main -> main
+```
+Success! The remove repo on GitHub now reflects the changes made to the local repo on my computer.
+
+## The virtuous cycle
+[Return](#sections)
+
+90% of my experience with Git and GitHub looks like this!
+
+```
+git status
+git add .
+git status
+git commit -a
+git status
+gh auth login
+git push
+git status
+```
+
+As long as you're running `git status` (and reading the output), you shouldn't get too surprised! When in doubt take it slow.
+
+I'll update this repo with more information on what to do when you want to access an earlier version of repo!
