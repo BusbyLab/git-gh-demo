@@ -1,7 +1,7 @@
 Git and GitHub: Laying a Foundation for Reproducible Data Analysis
 ================
 Kyle A. Gervers
-2023-04-10
+2023-04-11
 
 > This repo contains work that is unpublished. All results shown are
 > preliminary and are only included here to simulate a realistic use
@@ -117,7 +117,6 @@ use. Replace my information with your information on the command line.
     git config --global github.user "gerverska"
     git config --global color.ui "auto"
     git config --global core.editor "nano -w"
-    git config --global credential.helper 'cache --timeout=3600'
     git config --global push.default simple
 
 For Linux + macOS:
@@ -164,13 +163,19 @@ To check the configuration state, run:
 
 The place where project code is kept is called a repository. In the
 language of Git and GitHub, this is often shortened to `repo`. If I
-follow this link, I will be taken to my repo named `git-gh-demo`. From
-here, anyone can download the code by running the following `git`
-command:
+follow this [link](https://github.com/gerverska/git-gh-demo), I will be
+taken to my repo named `git-gh-demo`. From here, anyone can download the
+code by running the following `git` command:
 
     git clone https://github.com/gerverska/git-gh-demo.git
 
-Run this, and then `cd` into the directory associated with this repo.
+Where did I get the `https://github.com/gerverska/git-gh-demo.git` link?
+After following the link to the `git-gh-demo` repo, I clicked the green
+`<> Code` button and copied and pasted the HTTPS link onto the command
+line.
+
+After running `git clone`, `cd` into the directory associated with this
+repo.
 
     cd git-gh-demo
     ls -a
@@ -180,7 +185,7 @@ Run this, and then `cd` into the directory associated with this repo.
 
 The output of `ls -a` shows all the files and folders associated with
 the repo. See a folder named `.git`? This is the folder `git` uses to
-keep track of the all the changes I’ve made to the `git-gh-demo` repo. I
+keep track of all the changes I’ve made to the `git-gh-demo` repo. I
 never usually look in this folder. To get experience working with your
 own repos, you’ll need to remove this directory.
 
@@ -224,7 +229,7 @@ I’m in the `git-gh-demo` folder, I get this:
     nothing added to commit but untracked files present (use "git add" to track)
 
 This shows me that all the files in `git-gh-demo` are untracked. To help
-me only track the files I care about, `git` does track any files or
+me only track the files I care about, `git` doesn’t track any files or
 directories after I run `git init .`. Instead I have to `add` the files
 I want tracked. The output I got from `git status` above suggests:
 
@@ -309,7 +314,7 @@ just write `Initial commit` and write `nano` output.
      create mode 100644 01-demultiplex/logs/R1_data/multiqc_sources.txt
      create mode 100644 01-demultiplex/logs/R2.html
 
-When I run `git status` again, I know have this update:
+When I run `git status` again, I now have this update:
 
      On branch main
      nothing to commit, working tree clean
@@ -320,7 +325,7 @@ When I run `git status` again, I know have this update:
 
 I’m very close to pushing this repo to GitHub! Because this is my first
 push to GitHub (pretend for this example!), I’ll actually use `gh` from
-the GitHub CLI to do this. You can also create an empty repo through the
+GitHub CLI to do this. You can also create an empty repo through the
 GitHub website that you use `git` to push to, but I think it’s just
 easier to use `gh`.
 
@@ -387,9 +392,9 @@ Excellent! I now have a repo that I can view at
 [Return](#sections)
 
 Perhaps I make more changes to my code after the intial repo push. After
-running `git add .`, `git commit -a`, and writing my commit message.
-After running `git status`, I can see that my *local* repo (on my
-computer) is ahead of my *remote* repo (on GitHub).
+running `git add .`, `git commit -a`, and `git status`, I can see that
+my *local* repo (on my computer) is ahead of my *remote* repo (on
+GitHub).
 
     On branch main
     Your branch is ahead of 'origin/main' by 1 commit.
@@ -477,7 +482,7 @@ local repo on my computer.
     git status
 
 As long as you’re running `git status` (and reading the output), you
-shouldn’t get too surprised! When in doubt take it slow.
+shouldn’t get too surprised! When in doubt take it slowly.
 
-I’ll update this repo with more information on what to do when you want
-to access an earlier version of repo!
+I’ll update this repo with more information on how to use other `git`
+and `gh` commands!
