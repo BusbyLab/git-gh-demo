@@ -198,7 +198,11 @@ inside the `git-gh-demo` folder. It’s as easy as that.
 
     Initialized empty Git repository in /path/to/git-gh-demo/.git/
 
-I now have a bouncing baby repo.
+I now have a bouncing baby repo. Importantly, after running
+`git init .`, I now have a *local* repo (i.e., stored locally on my
+computer). The link that I cloned `git-gh-demo` from is a *remote* repo
+(stored on something that’s *not* my local repo). **The goal now for
+folks following along is to create a remote repo from this local repo.**
 
 However, there’s nothing in my repo. Whenever I run `git status` while
 I’m in the `git-gh-demo` folder, I get this:
@@ -323,11 +327,11 @@ When I run `git status` again, I now have this update:
 
 [Return](#sections)
 
-I’m very close to pushing this repo to GitHub! Because this is my first
-push to GitHub (pretend for this example!), I’ll actually use `gh` from
-GitHub CLI to do this. You can also create an empty repo through the
-GitHub website that you use `git` to push to, but I think it’s just
-easier to use `gh`.
+I’m very close to pushing this local repo to GitHub (the remote)!
+Because this is my first push to GitHub (pretend for this example!),
+I’ll actually use `gh` from GitHub CLI to do this. You can also create
+an empty repo through the GitHub website that you use `git` to push to,
+but I think it’s just easier to use `gh`.
 
     gh repo create
 
@@ -384,8 +388,9 @@ Press `Enter`
     branch 'main' set up to track 'origin/main'.
     ✓ Pushed commits to https://github.com/gerverska/git-gh-demo.git
 
-Excellent! I now have a repo that I can view at
-[GitHub.com](https://github.com/gerverska/git-gh-demo)!
+Excellent! I now have a remote repo I can view at
+[GitHub.com](https://github.com/gerverska/git-gh-demo) that matches my
+local repo!
 
 ## Subsequent pushes
 
