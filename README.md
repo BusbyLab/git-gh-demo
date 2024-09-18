@@ -464,10 +464,10 @@ again.
     To https://github.com/gerverska/git-gh-demo.git
        51940f6..f3e51cb  main -> main
 
-Success! The remove repo on GitHub now reflects the changes made to the
+Success! The repo on GitHub now reflects the changes made to the
 local repo on my computer.
 
-## The virtuous cycle
+## The virtuous circle
 
 [Return](#sections)
 
