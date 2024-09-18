@@ -3,10 +3,6 @@ Git and GitHub: Laying a Foundation for Reproducible Data Analysis
 Kyle A. Gervers
 2023-04-11
 
-> This repo contains work that is unpublished. All results shown are
-> preliminary and are only included here to simulate a realistic use
-> case.
-
 > The content and organization of this demonstration is heavily inspired
 > by
 > [walkthroughs](https://riffomonas.org/reproducible_research/version_control/#1)
