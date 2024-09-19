@@ -361,8 +361,7 @@ I’ll select myself, but my PI might wish to own this repository.
       Internal
 
 I’ll select `Public` for this exercise, but I might want to select
-`Private` for other repos. I can have as many public repos as I want,
-but private repos are limited for each user by default.
+`Private` for other repos. If you're unsure about whether a repo should be public or private, choose `Private` just to be safe.
 
     ✓ Created repository gerverska/git-gh-demo on GitHub
 
