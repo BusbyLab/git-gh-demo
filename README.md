@@ -82,6 +82,7 @@ CLI](https://cli.github.com/), which we will use here.
 - [Make a GitHub account](#make-a-github-account)
 - [Install and configure Git](#install-and-configure-git)
 - [Install and configure GitHub CLI](#install-and-configure-github-cli)
+- [A note on reproducibility](#a-note-on-reproducibility)
 
 ### Make a GitHub account
 
@@ -152,6 +153,16 @@ There’s minimal configuration to do, but consider changing the editor to
 To check the configuration state, run:
 
     gh config list
+
+
+### A note on reproducibility
+
+If you are a Windows user, it might be easier to use Git and GitHub CLI on the CQLS HPC (i.e., "the cluster") or Posy's lab computer.
+The system wide installs can be used, but both of these programs can also be installed and managed to your liking using `conda`.
+
+A guide to setting up your own `conda` install on the CQLS HPC can be found [here](https://software.cqls.oregonstate.edu/tips/posts/conda-tutorial/).
+While not covered in this demo, using `conda` stands to help all users keep their workflows reproducible and customizable.
+Refer to [videos on this topic](https://youtube.com/playlist?list=PLmNrK_nkqBpJtNdQBPhPWjIFRYeFOGfJ1&si=ICgjd2Pag0Z6sOp2) by Pat Schloss on his Riffomonas Project YouTube channel.
 
 ## Git
 
