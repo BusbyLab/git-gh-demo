@@ -3,7 +3,7 @@ Git and GitHub: Laying a Foundation for Reproducible Data Analysis
 Kyle A. Gervers
 2023-04-11
 
-> The content and organization of this demonstration is heavily inspired
+> The content and organization of this demonstration are heavily inspired
 > by
 > [walkthroughs](https://riffomonas.org/reproducible_research/version_control/#1)
 > designed by [Pat Schloss](https://www.schlosslab.org/). Please explore
