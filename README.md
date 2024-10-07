@@ -86,8 +86,6 @@ CLI](https://cli.github.com/), which we will use here.
 
 ### Make a GitHub account
 
-[Return](#getting-started)
-
 Click [here](https://github.com/join) to make a GitHub account, and [set
 up two-factor
 authentication](https://docs.github.com/en/authentication/securing-your-account-with-two-factor-authentication-2fa)
@@ -98,8 +96,6 @@ not always have access to your OSU email address. In addition to your
 email address, record the username you provided for this GitHub account.
 
 ### Install and configure Git
-
-[Return](#getting-started)
 
 As indicated in the Git installation
 [guide](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git),
@@ -134,8 +130,6 @@ I can always see what I’ve configured by running the following:
 
 ### Install and configure GitHub CLI
 
-[Return](#getting-started)
-
 This program is not entirely necessary for using Git with GitHub, but I
 think it simplifies account security operations and project repository
 creation. It also seems like this program simplifies higher-level
@@ -153,7 +147,6 @@ There’s minimal configuration to do, but consider changing the editor to
 To check the configuration state, run:
 
     gh config list
-
 
 ### A note on reproducibility
 
