@@ -56,7 +56,7 @@ In short, using Git and GitHub improves makes practically every step of
 the analysis, collaboration, and publication workflow easier. As with
 all tools, using them consistently and comfortably requires patience and
 practice. Thankfully, over 100 million people use Git and GitHub, so a
-lot can be learned from this huge user base.
+lot can be learned from this huge user base by googling.
 
 ## Git and GitHub
 
