@@ -152,8 +152,8 @@ To check the configuration state, run:
 ### A note on reproducibility
 
 If you are a Windows user, it might be easier to use Git and GitHub CLI
-on the CQLS HPC (i.e., “the cluster”) or Posy’s lab computer. The system
-wide installs can be used, but both of these programs can also be
+on the CQLS HPC (i.e., “the cluster”) or Posy’s lab computer. The
+system-wide installs can be used, but both of these programs can also be
 installed and managed to your liking using `conda`.
 
 A guide to setting up your own `conda` install on the CQLS HPC can be
@@ -362,26 +362,27 @@ Press `Enter` <br> <br>
 Press `Enter` <br> <br>
 
     ? Repository owner  [Use arrows to move, type to filter]
-      SpataforaLab
-    > gerverska
+    > BusbyTest
+      gerverska
 
-I’ll select myself for this example, but my PI might wish to have this
-repository in their organization. <br> <br>
+I’ll select `BusbyTest` for this example so my PI can associate this
+repo with their organization. If you don’t have the option to select
+`BusbyTest`, choose yourself. <br> <br>
 
     ? Description (git-gh-demo) Learning git + gh
 
 Provide an informative description of the repo. <br> <br>
 
     ? Visibility  [Use arrows to move, type to filter]
-    > Public
-      Private
+      Public
+    > Private
       Internal
 
-I’ll select `Public` for this exercise, but I will want to select
-`Private` for most repos. **Always ask your PI before making a repo
+I’ll select `Private` for this exercise, but I could select `Public` if
+my PI gave me the go-ahead. **Always ask your PI before making a repo
 public.** <br> <br>
 
-    ✓ Created repository gerverska/git-gh-demo_gerverska on GitHub
+    ✓ Created repository BusbyTest/git-gh-demo_gerverska on GitHub
 
     ? What should the new remote be called? (origin)
 
@@ -396,13 +397,13 @@ Press `Enter` <br> <br>
     Writing objects: 100% (207/207), 46.31 MiB | 12.47 MiB/s, done.
     Total 207 (delta 73), reused 0 (delta 0), pack-reused 0
     remote: Resolving deltas: 100% (73/73), done.
-    To https://github.com/gerverska/git-gh-demo_gerverska.git
+    To https://github.com/BusbyTest/git-gh-demo_gerverska.git
      * [new branch]      HEAD -> main
     branch 'main' set up to track 'origin/main'.
-    ✓ Pushed commits to https://github.com/gerverska/git-gh-demo_gerverska.git
+    ✓ Pushed commits to https://github.com/BusbyTest/git-gh-demo_gerverska.git
 
 Excellent! I now have a remote repo I can view at
-<https://github.com/gerverska/git-gh-demo_gerverska> that matches my
+<https://github.com/BusbyTest/git-gh-demo_gerverska> that matches my
 local repo!
 
 ## Subsequent pushes
@@ -479,8 +480,8 @@ again.
     Writing objects: 100% (4/4), 5.20 KiB | 1.04 MiB/s, done.
     Total 4 (delta 3), reused 0 (delta 0), pack-reused 0
     remote: Resolving deltas: 100% (3/3), completed with 2 local objects.
-    To https://github.com/gerverska/git-gh-demo_gerverska.git
-       51940f6..f3e51cb  main -> main
+    To https://github.com/BusbyTest/git-gh-demo_gerverska.git
+       #######..#######  main -> main
 
 Success! The remote repo on GitHub now reflects the changes made to the
 local repo on my computer.
@@ -489,7 +490,7 @@ local repo on my computer.
 
 [Return](#sections)
 
-90% of my experience with Git and GitHub looks like this!
+90% of my experience with Git and GitHub looks like this.
 
     git status
     git add .
