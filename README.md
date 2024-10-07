@@ -19,7 +19,7 @@ Kyle A. Gervers
 - [Git](#git)
 - [GitHub CLI](#github-cli)
 - [Subsequent pushes](#subsequent-pushes)
-- [The virtuous cycle](#the-virtuous-cycle)
+- [The virtuous circle](#the-virtuous-circle)
 
 ## Introduction
 
