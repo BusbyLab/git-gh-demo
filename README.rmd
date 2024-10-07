@@ -9,8 +9,6 @@ output: github_document
 knitr::opts_chunk$set(echo = F, include = F)
 ```
 
-> This repo contains work that is unpublished. All results shown are preliminary and are only included here to simulate a realistic use case.
-
 > The content and organization of this demonstration is heavily inspired by [walkthroughs](https://riffomonas.org/reproducible_research/version_control/#1) designed by [Pat Schloss](https://www.schlosslab.org/). Please explore all of his work, perhaps starting [here](https://www.youtube.com/watch?v=olu821RTQA8&list=PLmNrK_nkqBpKtCHqSSHXZdK-C4Zg89Rrv) and/or [here](https://doi.org/10.1128/mra.01310-22)!
 
 # Sections
@@ -20,7 +18,8 @@ knitr::opts_chunk$set(echo = F, include = F)
 * [Git](#git)
 * [GitHub CLI](#github-cli)
 * [Subsequent pushes](#subsequent-pushes)
-* [The virtuous cycle](#the-virtuous-cycle)
+* [The virtuous circle](#the-virtuous-circle)
+* [Reproducibility](#reproducibility)
 
 ## Introduction
 [Return](#sections)
@@ -29,7 +28,7 @@ There are a lot of moving parts involved in most microbiome data analysis projec
 
 It's certainly possible to manually keep track of all these moving parts. Every time I change a file, I could type those changes into a log, indicating which lines or which elements I changed. But it can be hard for me to remember and log all of the changes I made to a single file, let alone every file in my project. Further, in the case of research projects, getting confused by my code can have disastrous consequences. Add a collaborator to a project, and the room for confusion doubles. This is where version control software like Git and platforms like GitHub lend a helping hand. These two solutions allow me to (1) easily download code, (2) add and track the edits I make, (3) undo those edits to a previous state, (4) store the edited code on a remote web platform, (5) share this code with a co-author, who can then (6) independently edit my code. I can then (7) merge these edits with the edits I had been making in the meantime, and then, once the project matures (8) publish a release of our code with the manuscripts I submit for publication in a journal. Other researchers can then use my code which (9) builds trust in my research and (10) helps other researchers improve on my approaches, improving the field overall.
 
-In short, using Git and GitHub improves makes practically every step of the analysis, collaboration, and publication workflow easier. As with all tools, using them consistently and comfortably requires patience and practice. Thankfully, over 100 million people use Git and GitHub, so a lot can be learned from this huge user base.
+In short, using Git and GitHub improves makes practically every step of the analysis, collaboration, and publication workflow easier. As with all tools, using them consistently and comfortably requires patience and practice. Thankfully, over 100 million people use Git and GitHub, so a lot can be learned from this huge user base by googling.
 
 ## Git and GitHub
 [Return](#sections)
@@ -42,16 +41,15 @@ Before we get too far along: *Git is not the same as GitHub*. These are two sepa
 - [Make a GitHub account](#make-a-github-account)
 - [Install and configure Git](#install-and-configure-git)
 - [Install and configure GitHub CLI](#install-and-configure-github-cli)
+- [A note on reproducibility](#a-note-on-reproducibility)
 
 ### Make a GitHub account
-[Return](#getting-started)
 
 Click [here](https://github.com/join) to make a GitHub account, and [set up two-factor authentication](https://docs.github.com/en/authentication/securing-your-account-with-two-factor-authentication-2fa) while you're at it.
 
 I recommend using a non-OSU email to set up this account, as you might not always have access to your OSU email address. In addition to your email address, record the username you provided for this GitHub account.
 
 ### Install and configure Git
-[Return](#getting-started)
 
 As indicated in the Git installation [guide](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git), installation depends on operating system (Linux, macOS, or Windows), so follow the directions specific to your OS.
 
@@ -83,7 +81,6 @@ git config --list
 ```
 
 ### Install and configure GitHub CLI
-[Return](#getting-started)
 
 This program is not entirely necessary for using Git with GitHub, but I think it simplifies account security operations and project repository creation. It also seems like this program simplifies higher-level operations that I won't cover here (and don't full understand at the time of this writing), and I'll probably "grow into" this package over time. Again, follow the [installation directions](https://github.com/cli/cli#installation) relevant to your operating system.
 
@@ -97,6 +94,12 @@ To check the configuration state, run:
 gh config list
 ```
 
+### A note on reproducibility
+
+If you are a Windows user, it might be easier to use Git and GitHub CLI on the CQLS HPC (i.e., "the cluster") or Posy's lab computer. The system wide installs can be used, but both of these programs can also be installed and managed to your liking using `conda`.
+
+A guide to setting up your own `conda` install on the CQLS HPC can be found [here](https://software.cqls.oregonstate.edu/tips/posts/conda-tutorial/). While not covered in this demo, using `conda` stands to help all users keep their workflows reproducible and customizable. Refer to [videos on this topic](https://youtube.com/playlist?list=PLmNrK_nkqBpJtNdQBPhPWjIFRYeFOGfJ1&si=ICgjd2Pag0Z6sOp2) by Pat Schloss on his Riffomonas Project YouTube channel.
+
 ## Git
 [Return](#sections)
 
@@ -106,31 +109,29 @@ git clone https://github.com/gerverska/git-gh-demo.git
 ```
 Where did I get the `https://github.com/gerverska/git-gh-demo.git` link? After following the link to the `git-gh-demo` repo, I clicked the green `<> Code` button and copied and pasted the HTTPS link onto the command line.
 
-After running `git clone`, `cd` into the directory associated with this repo.
+After running `git clone`, use `mv` to change the name of `git-gh-demo` as shown below (but don't use my name!). After this, `cd` into the directory associated with this repo.
 ```
-cd git-gh-demo
+mv git-gh-demo/ git-gh-demo_gerverska/
+cd git-gh-demo_gerverska/
 ls -a
 ```
 ```
-.   01-demultiplex  03-denoise  05-rarefy   .adapters  config.yml  env           .git        notes.txt     README.md
-..  02-trim         04-compile  06-analyze  code       data        fun-gi.Rproj  .gitignore  README_files  README.rmd
+.   01-demultiplex  03-denoise  05-rarefy   code        data  .git               .gitignore    README.md   .Rproj.user
+..  02-trim         04-compile  06-analyze  config.yml  env   git-gh-demo.Rproj  README_files  README.rmd
 ```
 
-The output of `ls -a` shows all the files and folders associated with the repo. See a folder named `.git`? This is the folder `git` uses to keep track of all the changes I've made to the `git-gh-demo` repo. I never usually look in this folder. To get experience working with your own repos, you'll need to remove this directory.
-```
-rm .git -fr
-```
+The output of `ls -a` shows all the files and folders associated with the repo. The `env`, `.git`, and `.Rproj.user` are only visible on my end, so ignore these for this demo.
 
-After `.git` has been removed, run `git init .` to initialize a repo inside the `git-gh-demo` folder. It's as easy as that.
+Run `git init .` to initialize a repo inside the renamed `git-gh-demo` folder. It's as easy as that.
 ```
 git init .
 ```
 ```
-Initialized empty Git repository in /path/to/git-gh-demo/.git/
+Initialized empty Git repository in /path/to/git-gh-demo_gerverska/.git/
 ```
-I now have a bouncing baby repo. Importantly, after running `git init .`, I now have a *local* repo (i.e., stored locally on my computer). The link that I cloned `git-gh-demo` from is a *remote* repo (stored on something that's *not* my local repo). **The goal now for folks following along is to create a remote repo from this local repo.**
+I now have a bouncing baby repo. Specifically, after running `git init .`, I now have a *local* repo (i.e., stored locally on my computer). The link that I cloned `git-gh-demo` from is a *remote* repo (i.e., stored on something that's *not* my local repo). **The goal now for folks following along is to create a remote repo from this local repo.**
 
-However, there's nothing in my repo. Whenever I run `git status` while I'm in the `git-gh-demo` folder, I get this:
+However, there's nothing in my repo. Whenever I run `git status` while I'm in the renamed `git-gh-demo` folder, I get this:
 ```
 On branch main
 
@@ -138,7 +139,6 @@ No commits yet
 
 Untracked files:
   (use "git add <file>..." to include in what will be committed)
-	.adapters
 	.gitignore
 	01-demultiplex/
 	02-trim/
@@ -152,8 +152,7 @@ Untracked files:
 	code/
 	config.yml
 	data/
-	fun-gi.Rproj
-	notes.txt
+	git-gh-demo.Rproj
 
 nothing added to commit but untracked files present (use "git add" to track)
 ```
@@ -174,7 +173,6 @@ No commits yet
 
 Changes to be committed:
   (use "git rm --cached <file>..." to unstage)
-	new file:   .adapters
 	new file:   .gitignore
 	new file:   01-demultiplex/README.md
 	new file:   01-demultiplex/logs/R1.html
@@ -190,7 +188,7 @@ Several other files are listed too. If I wanted to undo this `add`, `git status`
 ```
 git commit -a
 ```
-By default, this command commits all of the changes we just added and opens up an instance of `nano`:
+This command commits all of the changes we just added and opens up an instance of `nano`:
 ```
 GNU nano 6.2
 
@@ -202,7 +200,6 @@ GNU nano 6.2
 # Initial commit
 #
 # Changes to be committed:
-#       new file:   .adapters
 #       new file:   .gitignore
 #       new file:   01-demultiplex/README.md
 #       new file:   01-demultiplex/logs/R1.html
@@ -214,11 +211,10 @@ GNU nano 6.2
 #       new file:   01-demultiplex/logs/R1_data/multiqc_sources.txt
 #       new file:   01-demultiplex/logs/R2.html
 ```
-There's a note in the `nano` window that asks me to `enter the commit message for your changes`. I try to make these commit messages short and sweet (10 words or so), while also accurately communicating what was changed. Since this is my intial commit, lets just write `Initial commit` and write `nano` output.
+There's a note in the `nano` window that asks me to `enter the commit message for your changes`. I try to make these commit messages short and sweet (10 words or so), while also accurately communicating what was changed. Since this is my initial commit, let's just write `Initial commit` and write `nano` output.
 ```
 [main (root-commit) 51940f6] Initial commit
  194 files changed, 3216682 insertions(+)
- create mode 100644 .adapters
  create mode 100644 .gitignore
  create mode 100644 01-demultiplex/README.md
  create mode 100644 01-demultiplex/logs/R1.html
@@ -254,10 +250,10 @@ This starts an interactive session with `gh`. Answer all the prompts accordingly
 ```
 ? Path to local repository (.)
 ```
-If you're in the `git-gh-demo` folder (which you should be if you're following along), just press `Enter`.
+If you're in your renamed `git-gh-demo` folder (which you should be if you're following along), just press `Enter`.
 
 ```
-? Repository name (git-gh-demo)
+? Repository name (git-gh-demo_gerverska)
 ```
 Press `Enter`
 
@@ -278,10 +274,10 @@ I'll select myself, but my PI might wish to own this repository.
   Private
   Internal
 ```
-I'll select `Public` for this exercise, but I might want to select `Private` for other repos. I can have as many public repos as I want, but private repos are limited for each user by default.
+I'll select `Public` for this exercise, but I will want to select `Private` for most repos. Always ask your PI before making a repo public.
 
 ```
-✓ Created repository gerverska/git-gh-demo on GitHub
+✓ Created repository gerverska/git-gh-demo_gerverska on GitHub
 ```
 
 ```
@@ -300,12 +296,12 @@ Compressing objects: 100% (202/202), done.
 Writing objects: 100% (207/207), 46.31 MiB | 12.47 MiB/s, done.
 Total 207 (delta 73), reused 0 (delta 0), pack-reused 0
 remote: Resolving deltas: 100% (73/73), done.
-To https://github.com/gerverska/git-gh-demo.git
+To https://github.com/gerverska/git-gh-demo_gerverska.git
  * [new branch]      HEAD -> main
 branch 'main' set up to track 'origin/main'.
-✓ Pushed commits to https://github.com/gerverska/git-gh-demo.git
+✓ Pushed commits to https://github.com/gerverska/git-gh-demo_gerverska.git
 ```
-Excellent! I now have a remote repo I can view at [GitHub.com](https://github.com/gerverska/git-gh-demo) that matches my local repo!
+Excellent! I now have a remote repo I can view at [GitHub.com](https://github.com/gerverska/git-gh-demo_gerverska) that matches my local repo!
 
 ## Subsequent pushes
 [Return](#sections)
@@ -371,7 +367,7 @@ Compressing objects: 100% (4/4), done.
 Writing objects: 100% (4/4), 5.20 KiB | 1.04 MiB/s, done.
 Total 4 (delta 3), reused 0 (delta 0), pack-reused 0
 remote: Resolving deltas: 100% (3/3), completed with 2 local objects.
-To https://github.com/gerverska/git-gh-demo.git
+To https://github.com/gerverska/git-gh-demo_gerverska.git
    51940f6..f3e51cb  main -> main
 ```
 Success! The remove repo on GitHub now reflects the changes made to the local repo on my computer.
@@ -392,6 +388,26 @@ git push
 git status
 ```
 
-As long as you're running `git status` (and reading the output), you shouldn't get too surprised! When in doubt take it slowly.
+As long as you're running `git status` (and reading the output), you shouldn't get too surprised! When in doubt, take it slowly.
 
 I'll update this repo with more information on how to use other `git` and `gh` commands!
+
+## Reproducibility
+[Return](#sections)
+
+All packages were installed and managed with `conda`.
+```{bash conda, include=TRUE, echo=FALSE, comment=""}
+
+conda --version
+cat config.yml
+
+```
+
+Install the above bioinformatic environment from `config.yml` using the script `00-build.sh`
+```
+# Clone the repo (using the GitHub CLI tool) ####
+gh repo clone gerverska/git-gh-demo
+
+# Run the build script ####
+bash code/00-build.sh
+```

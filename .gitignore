@@ -1,9 +1,10 @@
 env
 data/raw
 scratch
+.git
 01-demultiplex/*.fq.gz
 02-trim/*.fq.gz
+.adapters
 03-denoise/filter
-canopy
 *-log
 .Rproj.user

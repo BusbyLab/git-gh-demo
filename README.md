@@ -1,9 +1,9 @@
 Git and GitHub: Laying a Foundation for Reproducible Data Analysis
 ================
 Kyle A. Gervers
-2023-04-11
+2024-10-07
 
-> The content and organization of this demonstration are heavily inspired
+> The content and organization of this demonstration is heavily inspired
 > by
 > [walkthroughs](https://riffomonas.org/reproducible_research/version_control/#1)
 > designed by [Pat Schloss](https://www.schlosslab.org/). Please explore
@@ -20,6 +20,7 @@ Kyle A. Gervers
 - [GitHub CLI](#github-cli)
 - [Subsequent pushes](#subsequent-pushes)
 - [The virtuous circle](#the-virtuous-circle)
+- [Reproducibility](#reproducibility)
 
 ## Introduction
 
@@ -150,12 +151,19 @@ To check the configuration state, run:
 
 ### A note on reproducibility
 
-If you are a Windows user, it might be easier to use Git and GitHub CLI on the CQLS HPC (i.e., "the cluster") or Posy's lab computer.
-The system wide installs can be used, but both of these programs can also be installed and managed to your liking using `conda`.
+If you are a Windows user, it might be easier to use Git and GitHub CLI
+on the CQLS HPC (i.e., “the cluster”) or Posy’s lab computer. The system
+wide installs can be used, but both of these programs can also be
+installed and managed to your liking using `conda`.
 
-A guide to setting up your own `conda` install on the CQLS HPC can be found [here](https://software.cqls.oregonstate.edu/tips/posts/conda-tutorial/).
-While not covered in this demo, using `conda` stands to help all users keep their workflows reproducible and customizable.
-Refer to [videos on this topic](https://youtube.com/playlist?list=PLmNrK_nkqBpJtNdQBPhPWjIFRYeFOGfJ1&si=ICgjd2Pag0Z6sOp2) by Pat Schloss on his Riffomonas Project YouTube channel.
+A guide to setting up your own `conda` install on the CQLS HPC can be
+found
+[here](https://software.cqls.oregonstate.edu/tips/posts/conda-tutorial/).
+While not covered in this demo, using `conda` stands to help all users
+keep their workflows reproducible and customizable. Refer to [videos on
+this
+topic](https://youtube.com/playlist?list=PLmNrK_nkqBpJtNdQBPhPWjIFRYeFOGfJ1&si=ICgjd2Pag0Z6sOp2)
+by Pat Schloss on his Riffomonas Project YouTube channel.
 
 ## Git
 
@@ -174,38 +182,37 @@ After following the link to the `git-gh-demo` repo, I clicked the green
 `<> Code` button and copied and pasted the HTTPS link onto the command
 line.
 
-After running `git clone`, `cd` into the directory associated with this
-repo.
+After running `git clone`, use `mv` to change the name of `git-gh-demo`
+as shown below (but don’t use my name!). After this, `cd` into the
+directory associated with this repo.
 
-    cd git-gh-demo
+    mv git-gh-demo/ git-gh-demo_gerverska/
+    cd git-gh-demo_gerverska/
     ls -a
 
-    .   01-demultiplex  03-denoise  05-rarefy   .adapters  config.yml  env           .git        notes.txt     README.md
-    ..  02-trim         04-compile  06-analyze  code       data        fun-gi.Rproj  .gitignore  README_files  README.rmd
+    .   01-demultiplex  03-denoise  05-rarefy   code        data  .git               .gitignore    README.md   .Rproj.user
+    ..  02-trim         04-compile  06-analyze  config.yml  env   git-gh-demo.Rproj  README_files  README.rmd
 
 The output of `ls -a` shows all the files and folders associated with
-the repo. See a folder named `.git`? This is the folder `git` uses to
-keep track of all the changes I’ve made to the `git-gh-demo` repo. I
-never usually look in this folder. To get experience working with your
-own repos, you’ll need to remove this directory.
+the repo. The `env`, `.git`, and `.Rproj.user` are only visible on my
+end, so ignore these for this demo.
 
-    rm .git -fr
-
-After `.git` has been removed, run `git init .` to initialize a repo
-inside the `git-gh-demo` folder. It’s as easy as that.
+Run `git init .` to initialize a repo inside the renamed `git-gh-demo`
+folder. It’s as easy as that.
 
     git init .
 
-    Initialized empty Git repository in /path/to/git-gh-demo/.git/
+    Initialized empty Git repository in /path/to/git-gh-demo_gerverska/.git/
 
-I now have a bouncing baby repo. Importantly, after running
+I now have a bouncing baby repo. Specifically, after running
 `git init .`, I now have a *local* repo (i.e., stored locally on my
 computer). The link that I cloned `git-gh-demo` from is a *remote* repo
-(stored on something that’s *not* my local repo). **The goal now for
-folks following along is to create a remote repo from this local repo.**
+(i.e., stored on something that’s *not* my local repo). **The goal now
+for folks following along is to create a remote repo from this local
+repo.**
 
 However, there’s nothing in my repo. Whenever I run `git status` while
-I’m in the `git-gh-demo` folder, I get this:
+I’m in the renamed `git-gh-demo` folder, I get this:
 
     On branch main
 
@@ -213,7 +220,6 @@ I’m in the `git-gh-demo` folder, I get this:
 
     Untracked files:
       (use "git add <file>..." to include in what will be committed)
-        .adapters
         .gitignore
         01-demultiplex/
         02-trim/
@@ -227,8 +233,7 @@ I’m in the `git-gh-demo` folder, I get this:
         code/
         config.yml
         data/
-        fun-gi.Rproj
-        notes.txt
+        git-gh-demo.Rproj
 
     nothing added to commit but untracked files present (use "git add" to track)
 
@@ -253,7 +258,6 @@ adding all of the files and folders to this repo. Now when I run
 
     Changes to be committed:
       (use "git rm --cached <file>..." to unstage)
-        new file:   .adapters
         new file:   .gitignore
         new file:   01-demultiplex/README.md
         new file:   01-demultiplex/logs/R1.html
@@ -273,8 +277,8 @@ these files, the next step is to commit those changes.
 
     git commit -a
 
-By default, this command commits all of the changes we just added and
-opens up an instance of `nano`:
+This command commits all of the changes we just added and opens up an
+instance of `nano`:
 
     GNU nano 6.2
 
@@ -286,7 +290,6 @@ opens up an instance of `nano`:
     # Initial commit
     #
     # Changes to be committed:
-    #       new file:   .adapters
     #       new file:   .gitignore
     #       new file:   01-demultiplex/README.md
     #       new file:   01-demultiplex/logs/R1.html
@@ -301,12 +304,11 @@ opens up an instance of `nano`:
 There’s a note in the `nano` window that asks me to
 `enter the commit message for your changes`. I try to make these commit
 messages short and sweet (10 words or so), while also accurately
-communicating what was changed. Since this is my intial commit, lets
+communicating what was changed. Since this is my initial commit, let’s
 just write `Initial commit` and write `nano` output.
 
     [main (root-commit) 51940f6] Initial commit
      194 files changed, 3216682 insertions(+)
-     create mode 100644 .adapters
      create mode 100644 .gitignore
      create mode 100644 01-demultiplex/README.md
      create mode 100644 01-demultiplex/logs/R1.html
@@ -344,10 +346,10 @@ accordingly:
 
     ? Path to local repository (.)
 
-If you’re in the `git-gh-demo` folder (which you should be if you’re
-following along), just press `Enter`.
+If you’re in your renamed `git-gh-demo` folder (which you should be if
+you’re following along), just press `Enter`.
 
-    ? Repository name (git-gh-demo)
+    ? Repository name (git-gh-demo_gerverska)
 
 Press `Enter`
 
@@ -364,10 +366,11 @@ I’ll select myself, but my PI might wish to own this repository.
       Private
       Internal
 
-I’ll select `Public` for this exercise, but I might want to select
-`Private` for other repos. If you're unsure about whether a repo should be public or private, choose `Private` just to be safe.
+I’ll select `Public` for this exercise, but I will want to select
+`Private` for most repos. Always ask your PI before making a repo
+public.
 
-    ✓ Created repository gerverska/git-gh-demo on GitHub
+    ✓ Created repository gerverska/git-gh-demo_gerverska on GitHub
 
     ? What should the new remote be called? (origin)
 
@@ -382,14 +385,14 @@ Press `Enter`
     Writing objects: 100% (207/207), 46.31 MiB | 12.47 MiB/s, done.
     Total 207 (delta 73), reused 0 (delta 0), pack-reused 0
     remote: Resolving deltas: 100% (73/73), done.
-    To https://github.com/gerverska/git-gh-demo.git
+    To https://github.com/gerverska/git-gh-demo_gerverska.git
      * [new branch]      HEAD -> main
     branch 'main' set up to track 'origin/main'.
-    ✓ Pushed commits to https://github.com/gerverska/git-gh-demo.git
+    ✓ Pushed commits to https://github.com/gerverska/git-gh-demo_gerverska.git
 
 Excellent! I now have a remote repo I can view at
-[GitHub.com](https://github.com/gerverska/git-gh-demo) that matches my
-local repo!
+[GitHub.com](https://github.com/gerverska/git-gh-demo_gerverska) that
+matches my local repo!
 
 ## Subsequent pushes
 
@@ -464,13 +467,13 @@ again.
     Writing objects: 100% (4/4), 5.20 KiB | 1.04 MiB/s, done.
     Total 4 (delta 3), reused 0 (delta 0), pack-reused 0
     remote: Resolving deltas: 100% (3/3), completed with 2 local objects.
-    To https://github.com/gerverska/git-gh-demo.git
+    To https://github.com/gerverska/git-gh-demo_gerverska.git
        51940f6..f3e51cb  main -> main
 
-Success! The repo on GitHub now reflects the changes made to the
+Success! The remove repo on GitHub now reflects the changes made to the
 local repo on my computer.
 
-## The virtuous circle
+## The virtuous cycle
 
 [Return](#sections)
 
@@ -486,7 +489,46 @@ local repo on my computer.
     git status
 
 As long as you’re running `git status` (and reading the output), you
-shouldn’t get too surprised! When in doubt take it slowly.
+shouldn’t get too surprised! When in doubt, take it slowly.
 
 I’ll update this repo with more information on how to use other `git`
 and `gh` commands!
+
+## Reproducibility
+
+[Return](#sections)
+
+All packages were installed and managed with `conda`.
+
+    conda 24.4.0
+    name: /home/gerverska/projects/git-gh-demo/env
+    channels:
+      - conda-forge
+      - bioconda
+      - defaults
+    dependencies:
+      - atropos=1.1.31
+      - bioconductor-dada2=1.26.0
+      - cutadapt=4.2
+      - fastqc=0.11.9
+      - itsx=1.1.3
+      - multiqc=1.13
+      - pheniqs=2.1.0
+      - r-base=4.2.2
+      - r-caret=6.0_93
+      - r-dplyr=1.0.10
+      - r-markdown=1.4
+      - r-remotes=2.4.2
+      - r-rmarkdown=2.20
+      - r-vegan=2.6_4
+      - vsearch=2.22.1
+    prefix: /home/gerverska/projects/git-gh-demo/env
+
+Install the above bioinformatic environment from `config.yml` using the
+script `00-build.sh`
+
+    # Clone the repo (using the GitHub CLI tool) ####
+    gh repo clone gerverska/git-gh-demo
+
+    # Run the build script ####
+    bash code/00-build.sh
