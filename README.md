@@ -177,25 +177,30 @@ code by running the following `git` command:
 
     git clone https://github.com/gerverska/git-gh-demo.git
 
-Where did I get the `https://github.com/gerverska/git-gh-demo.git` link?
-After following the link to the `git-gh-demo` repo, I clicked the green
-`<> Code` button and copied and pasted the HTTPS link onto the command
-line.
+<br> Where did I get the `https://github.com/gerverska/git-gh-demo.git`
+link? After following the link to the `git-gh-demo` repo, I clicked the
+green `<> Code` button and copied and pasted the HTTPS link onto the
+command line.
 
-After running `git clone`, use `mv` to change the name of `git-gh-demo`
-as shown below (but don’t use my name!). After this, `cd` into the
-directory associated with this repo.
+After running `git clone`, **(1)** use `mv` to change the name of
+`git-gh-demo` as shown below (**but don’t use my name!**), **(2)** use
+`cd` to access the renamed directory, and then **(3)** use `rm` to
+remove the `.git` folder that came with the repo.
 
     mv git-gh-demo/ git-gh-demo_gerverska/
     cd git-gh-demo_gerverska/
+    rm -fr .git
+
     ls -a
 
-    .   01-demultiplex  03-denoise  05-rarefy   code        data  .git               .gitignore    README.md   .Rproj.user
-    ..  02-trim         04-compile  06-analyze  config.yml  env   git-gh-demo.Rproj  README_files  README.rmd
+<br> The output of `ls -a` shows all the files and folders associated
+with the repo.
 
-The output of `ls -a` shows all the files and folders associated with
-the repo. The `env`, `.git`, and `.Rproj.user` are only visible on my
-end, so ignore these for this demo.
+    .               02-trim     05-rarefy   config.yml         .gitignore    README.rmd
+    ..              03-denoise  06-analyze  data               README_files
+    01-demultiplex  04-compile  code        git-gh-demo.Rproj  README.md
+
+<br>
 
 Run `git init .` to initialize a repo inside the renamed `git-gh-demo`
 folder. It’s as easy as that.
@@ -204,7 +209,7 @@ folder. It’s as easy as that.
 
     Initialized empty Git repository in /path/to/git-gh-demo_gerverska/.git/
 
-I now have a bouncing baby repo. Specifically, after running
+<br> I now have a bouncing baby repo. Specifically, after running
 `git init .`, I now have a *local* repo (i.e., stored locally on my
 computer). The link that I cloned `git-gh-demo` from is a *remote* repo
 (i.e., stored on something that’s *not* my local repo). **The goal now
@@ -237,10 +242,10 @@ I’m in the renamed `git-gh-demo` folder, I get this:
 
     nothing added to commit but untracked files present (use "git add" to track)
 
-This shows me that all the files in `git-gh-demo` are untracked. To help
-me only track the files I care about, `git` doesn’t track any files or
-directories after I run `git init .`. Instead I have to `add` the files
-I want tracked. The output I got from `git status` above suggests:
+<br> This shows me that all the files in `git-gh-demo` are untracked. To
+help me only track the files I care about, `git` doesn’t track any files
+or directories after I run `git init .`. Instead I have to `add` the
+files I want tracked. The output I got from `git status` above suggests:
 
     use "git add <file>..." to include in what will be committed
 
@@ -248,7 +253,7 @@ I’ll do just that!
 
     git add .
 
-Instead of specifying a file, I specified `.`. This is the same as
+<br> Instead of specifying a file, I specified `.`. This is the same as
 adding all of the files and folders to this repo. Now when I run
 `git status` I get:
 
@@ -268,7 +273,7 @@ adding all of the files and folders to this repo. Now when I run
         new file:   01-demultiplex/logs/R1_data/multiqc_general_stats.txt
         new file:   01-demultiplex/logs/R1_data/multiqc_sources.txt
 
-Several other files are listed too. If I wanted to undo this `add`,
+<br> Several other files are listed too. If I wanted to undo this `add`,
 `git status` says I could run `git rm .` to unstage, which is good to
 know. I try not to add files that I think might present security
 vulnerabilities, or contain speculation or important information that I
@@ -277,8 +282,8 @@ these files, the next step is to commit those changes.
 
     git commit -a
 
-This command commits all of the changes we just added and opens up an
-instance of `nano`:
+<br> This command commits all of the changes we just added and opens up
+an instance of `nano`:
 
     GNU nano 6.2
 
@@ -301,14 +306,14 @@ instance of `nano`:
     #       new file:   01-demultiplex/logs/R1_data/multiqc_sources.txt
     #       new file:   01-demultiplex/logs/R2.html
 
-There’s a note in the `nano` window that asks me to
+<br> There’s a note in the `nano` window that asks me to
 `enter the commit message for your changes`. I try to make these commit
 messages short and sweet (10 words or so), while also accurately
 communicating what was changed. Since this is my initial commit, let’s
 just write `Initial commit` and write `nano` output.
 
-    [main (root-commit) 51940f6] Initial commit
-     194 files changed, 3216682 insertions(+)
+    [main (root-commit) #######] Initial commit
+     192 files changed, 3217058 insertions(+)
      create mode 100644 .gitignore
      create mode 100644 01-demultiplex/README.md
      create mode 100644 01-demultiplex/logs/R1.html
@@ -320,7 +325,7 @@ just write `Initial commit` and write `nano` output.
      create mode 100644 01-demultiplex/logs/R1_data/multiqc_sources.txt
      create mode 100644 01-demultiplex/logs/R2.html
 
-When I run `git status` again, I now have this update:
+<br> When I run `git status` again, I now have this update:
 
      On branch main
      nothing to commit, working tree clean
@@ -337,29 +342,35 @@ but I think it’s just easier to use `gh`.
 
     gh repo create
 
-This starts an interactive session with `gh`. Answer all the prompts
-accordingly:
+<br> This starts an interactive session with `gh`. Answer all the
+prompts as shown below (follow the `>` arrow). If you’re in your renamed
+`git-gh-demo` folder (which you should be if you’re following along),
+just press `Enter` for each step.
 
     ? What would you like to do?  [Use arrows to move, type to filter]
       Create a new repository on GitHub from scratch
     > Push an existing local repository to GitHub
 
+Press `Enter` <br> <br>
+
     ? Path to local repository (.)
 
-If you’re in your renamed `git-gh-demo` folder (which you should be if
-you’re following along), just press `Enter`.
+Press `Enter` <br> <br>
 
     ? Repository name (git-gh-demo_gerverska)
 
-Press `Enter`
+Press `Enter` <br> <br>
 
     ? Repository owner  [Use arrows to move, type to filter]
       SpataforaLab
     > gerverska
 
-I’ll select myself, but my PI might wish to own this repository.
+I’ll select myself for this example, but my PI might wish to have this
+repository in their organization. <br> <br>
 
     ? Description (git-gh-demo) Learning git + gh
+
+Provide an informative description of the repo. <br> <br>
 
     ? Visibility  [Use arrows to move, type to filter]
     > Public
@@ -367,14 +378,14 @@ I’ll select myself, but my PI might wish to own this repository.
       Internal
 
 I’ll select `Public` for this exercise, but I will want to select
-`Private` for most repos. Always ask your PI before making a repo
-public.
+`Private` for most repos. **Always ask your PI before making a repo
+public.** <br> <br>
 
     ✓ Created repository gerverska/git-gh-demo_gerverska on GitHub
 
     ? What should the new remote be called? (origin)
 
-Press `Enter`
+Press `Enter` <br> <br>
 
     ? Would you like to push commits from the current branch to "origin"? Yes
 
@@ -391,8 +402,8 @@ Press `Enter`
     ✓ Pushed commits to https://github.com/gerverska/git-gh-demo_gerverska.git
 
 Excellent! I now have a remote repo I can view at
-[GitHub.com](https://github.com/gerverska/git-gh-demo_gerverska) that
-matches my local repo!
+<https://github.com/gerverska/git-gh-demo_gerverska> that matches my
+local repo!
 
 ## Subsequent pushes
 
@@ -409,30 +420,30 @@ GitHub).
 
     nothing to commit, working tree clean
 
-Before I can run `git push` (which is what I’ll use for subsequent
+<br> Before I can run `git push` (which is what I’ll use for subsequent
 pushes), I need to refresh my login.
 
     gh auth login
 
-GitHub CLI will start an interactive session, asking you a series of
-questions.
+<br> GitHub CLI will start an interactive session, asking you a series
+of questions.
 
     ? What account do you want to log into?  [Use arrows to move, type to filter]
     > GitHub.com
       GitHub Enterprise Server
 
-Select `GitHub.com`
+Select `GitHub.com` <br> <br>
 
     ? What is your preferred protocol for Git operations?  [Use arrows to move, type to filter]
     > HTTPS
       SSH
 
 For now, select `HTTPS`. `SSH` is technically safer, but requires some
-setup.
+setup. <br> <br>
 
     ? Authenticate Git with your GitHub credentials? (Y/n)
 
-Type `Y`.
+Type `Y`. <br> <br>
 
     ? How would you like to authenticate GitHub CLI?  [Use arrows to move, type to filter]
     > Login with a web browser
@@ -443,20 +454,21 @@ authentication token (fine-grained or classic) if you [set that
 up](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token),
 but just make sure that you keep the token somewhere memorable and safe.
 However, in my opinion, if you want to go the token route, you might as
-well set up an SSH sign in.
+well set up an SSH sign in. <br> <br>
 
     ! First copy your one-time code: 19C2-CD83
     Press Enter to open github.com in your browser...
 
 After copying the code, press `Enter`. A GitHub tab in your default
 browser window should pop up with a place for you to paste your code.
+<br> <br>
 
     ✓ Authentication complete.
     - gh config set -h github.com git_protocol https
     ✓ Configured git protocol
     ✓ Logged in as gerverska
 
-And I’m signed in! Now that I’m signed in, I’ll go ahead and run
+<br> And I’m signed in! Now that I’m signed in, I’ll go ahead and run
 `git push`. If I don’t push soon, I’ll need to run `gh auth login`
 again.
 
@@ -470,10 +482,10 @@ again.
     To https://github.com/gerverska/git-gh-demo_gerverska.git
        51940f6..f3e51cb  main -> main
 
-Success! The remove repo on GitHub now reflects the changes made to the
+Success! The remote repo on GitHub now reflects the changes made to the
 local repo on my computer.
 
-## The virtuous cycle
+## The virtuous circle
 
 [Return](#sections)
 
@@ -491,8 +503,15 @@ local repo on my computer.
 As long as you’re running `git status` (and reading the output), you
 shouldn’t get too surprised! When in doubt, take it slowly.
 
-I’ll update this repo with more information on how to use other `git`
-and `gh` commands!
+Usually, it’s best practice to make several commits in series while
+you’re working on different sections of your code. By choosing to work
+on specific sections of your code, you can write more specific `commit`
+messages. You can treat these commit messages as notes to yourself or
+your collaborators describing what you did. If you’re happy with your
+changes after making a series of commits, go ahead and `push`.
+
+I’ll be updating this repo with more information on how to use other
+`git` and `gh` commands!
 
 ## Reproducibility
 
