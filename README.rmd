@@ -1,5 +1,5 @@
 ---
-title: "Git and GitHub: Laying a Foundation for Reproducible Data Analysis"
+title: "git and GitHub: Laying a Foundation for Reproducible Data Analysis"
 author: "Kyle A. Gervers"
 date: "`r Sys.Date()`"
 output: github_document

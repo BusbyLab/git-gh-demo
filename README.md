@@ -1,4 +1,4 @@
-Git and GitHub: Laying a Foundation for Reproducible Data Analysis
+git and GitHub: Laying a Foundation for Reproducible Data Analysis
 ================
 Kyle A. Gervers
 2024-10-08
