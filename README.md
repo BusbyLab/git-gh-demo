@@ -1,7 +1,7 @@
 Git and GitHub: Laying a Foundation for Reproducible Data Analysis
 ================
 Kyle A. Gervers
-2024-10-07
+2024-10-08
 
 > The content and organization of this demonstration is heavily inspired
 > by
@@ -18,8 +18,8 @@ Kyle A. Gervers
 - [Getting started](#getting-started)
 - [Git](#git)
 - [GitHub CLI](#github-cli)
-- [Subsequent pushes](#subsequent-pushes)
 - [The virtuous circle](#the-virtuous-circle)
+- [GitHub organizations](#github-organizations)
 - [Reproducibility](#reproducibility)
 
 ## Introduction
@@ -79,11 +79,6 @@ CLI](https://cli.github.com/), which we will use here.
 ## Getting started
 
 [Return](#sections)
-
-- [Make a GitHub account](#make-a-github-account)
-- [Install and configure Git](#install-and-configure-git)
-- [Install and configure GitHub CLI](#install-and-configure-github-cli)
-- [A note on reproducibility](#a-note-on-reproducibility)
 
 ### Make a GitHub account
 
@@ -169,6 +164,8 @@ by Pat Schloss on his Riffomonas Project YouTube channel.
 
 [Return](#sections)
 
+### `clone`
+
 The place where project code is kept is called a repository. In the
 language of Git and GitHub, this is often shortened to `repo`. If I
 follow this [link](https://github.com/gerverska/git-gh-demo), I will be
@@ -201,6 +198,8 @@ with the repo.
     01-demultiplex  04-compile  code        git-gh-demo.Rproj  README.md
 
 <br>
+
+### `init`
 
 Run `git init .` to initialize a repo inside the renamed `git-gh-demo`
 folder. It’s as easy as that.
@@ -251,6 +250,8 @@ files I want tracked. The output I got from `git status` above suggests:
 
 I’ll do just that!
 
+### `add`
+
     git add .
 
 <br> Instead of specifying a file, I specified `.`. This is the same as
@@ -279,6 +280,46 @@ know. I try not to add files that I think might present security
 vulnerabilities, or contain speculation or important information that I
 don’t think other GitHub users should see. If I’m happy with adding all
 these files, the next step is to commit those changes.
+
+### Ignoring files
+
+If I attempt to commit a file I’ve added that is larger than 50 MiB,
+I’ll receive a warning from Git. The commit will still `push` to the
+repository (covered below this section), but I should probably consider
+removing the commit to minimize performance impact. In the case of plant
+microbiome research, we often have large FASTQ or image files in our
+project folders that we don’t want on GitHub. This is where the
+`.gitignore` file helps us out. The `.` before `gitignore` indicates
+that it’s an “invisible” file only visible with commands like `ls -a`.
+
+How do I use `.gitignore`?
+
+Edit the file using `nano .gitignore`
+
+    env
+    data/raw
+    scratch
+    .git
+    01-demultiplex/*.fq.gz
+    02-trim/*.fq.gz
+    .adapters
+    03-denoise/filter
+    *-log
+    .Rproj.user
+
+The above shows my current `.gitignore` file. Each file or folder listed
+here will **not** be tracked whenever I run `git add .`. I can even put
+tell `git` to ignore the `.gitignore` file itself so that creeps on the
+internet can’t see the names of files that I’d like to ignore.
+
+Importantly, I can also use the wildcard symbol `*` to ignore multiple
+files or folders at once. I can see that `01-demultiplex/*.fq.gz` and
+`02-trim/*.fq.gz` are listed here. By including this, none of my many
+dozens of FASTQ files are ever added to the repo as far as `git` is
+concerned. **However, when using the wildcard `*`, make sure that the
+correct files are tracked or ignored before committing!**
+
+### `commit`
 
     git commit -a
 
@@ -334,6 +375,8 @@ just write `Initial commit` and write `nano` output.
 
 [Return](#sections)
 
+### `push`
+
 I’m very close to pushing this local repo to GitHub (the remote)!
 Because this is my first push to GitHub (pretend for this example!),
 I’ll actually use `gh` from GitHub CLI to do this. You can also create
@@ -362,14 +405,14 @@ Press `Enter` <br> <br>
 Press `Enter` <br> <br>
 
     ? Repository owner  [Use arrows to move, type to filter]
-    > BusbyTest
+    > BusbyLab
       gerverska
 
-I’ll select `BusbyTest` for this example so my PI can associate this
-repo with their organization. If you don’t have the option to select
-`BusbyTest`, choose yourself. <br> <br>
+I’ll select `BusbyLab` for this example so my PI can associate this repo
+with their organization. If you don’t have the option to select
+`BusbyLab`, choose yourself. <br> <br>
 
-    ? Description (git-gh-demo) Learning git + gh
+    ? Description (git-gh-demo_gerverska) Learning git + gh
 
 Provide an informative description of the repo. <br> <br>
 
@@ -382,7 +425,7 @@ I’ll select `Private` for this exercise, but I could select `Public` if
 my PI gave me the go-ahead. **Always ask your PI before making a repo
 public.** <br> <br>
 
-    ✓ Created repository BusbyTest/git-gh-demo_gerverska on GitHub
+    ✓ Created repository BusbyLab/git-gh-demo_gerverska on GitHub
 
     ? What should the new remote be called? (origin)
 
@@ -397,18 +440,16 @@ Press `Enter` <br> <br>
     Writing objects: 100% (207/207), 46.31 MiB | 12.47 MiB/s, done.
     Total 207 (delta 73), reused 0 (delta 0), pack-reused 0
     remote: Resolving deltas: 100% (73/73), done.
-    To https://github.com/BusbyTest/git-gh-demo_gerverska.git
+    To https://github.com/BusbyLab/git-gh-demo_gerverska.git
      * [new branch]      HEAD -> main
     branch 'main' set up to track 'origin/main'.
-    ✓ Pushed commits to https://github.com/BusbyTest/git-gh-demo_gerverska.git
+    ✓ Pushed commits to https://github.com/BusbyLab/git-gh-demo_gerverska.git
 
 Excellent! I now have a remote repo I can view at
-<https://github.com/BusbyTest/git-gh-demo_gerverska> that matches my
+<https://github.com/BusbyLab/git-gh-demo_gerverska> that matches my
 local repo!
 
-## Subsequent pushes
-
-[Return](#sections)
+### Subsequent pushes
 
 Perhaps I make more changes to my code after the intial repo push. After
 running `git add .`, `git commit -a`, and `git status`, I can see that
@@ -426,8 +467,8 @@ pushes), I need to refresh my login.
 
     gh auth login
 
-<br> GitHub CLI will start an interactive session, asking you a series
-of questions.
+<br> GitHub CLI will start an interactive session, asking me a series of
+questions.
 
     ? What account do you want to log into?  [Use arrows to move, type to filter]
     > GitHub.com
@@ -439,8 +480,8 @@ Select `GitHub.com` <br> <br>
     > HTTPS
       SSH
 
-For now, select `HTTPS`. `SSH` is technically safer, but requires some
-setup. <br> <br>
+For now, I’ll select `HTTPS`. `SSH` is technically safer, but requires
+some setup. <br> <br>
 
     ? Authenticate Git with your GitHub credentials? (Y/n)
 
@@ -460,8 +501,8 @@ well set up an SSH sign in. <br> <br>
     ! First copy your one-time code: 19C2-CD83
     Press Enter to open github.com in your browser...
 
-After copying the code, press `Enter`. A GitHub tab in your default
-browser window should pop up with a place for you to paste your code.
+After copying the code, I’ll press `Enter`. A GitHub tab in my default
+browser window should pop up with a place for you to paste the code.
 <br> <br>
 
     ✓ Authentication complete.
@@ -480,7 +521,7 @@ again.
     Writing objects: 100% (4/4), 5.20 KiB | 1.04 MiB/s, done.
     Total 4 (delta 3), reused 0 (delta 0), pack-reused 0
     remote: Resolving deltas: 100% (3/3), completed with 2 local objects.
-    To https://github.com/BusbyTest/git-gh-demo_gerverska.git
+    To https://github.com/BusbyLab/git-gh-demo_gerverska.git
        #######..#######  main -> main
 
 Success! The remote repo on GitHub now reflects the changes made to the
@@ -490,7 +531,7 @@ local repo on my computer.
 
 [Return](#sections)
 
-90% of my experience with Git and GitHub looks like this.
+Most of my experience with Git and GitHub looks like this.
 
     git status
     git add .
@@ -501,18 +542,48 @@ local repo on my computer.
     git push
     git status
 
-As long as you’re running `git status` (and reading the output), you
+As long as I’m running `git status` (and reading the output), I
 shouldn’t get too surprised! When in doubt, take it slowly.
 
 Usually, it’s best practice to make several commits in series while
 you’re working on different sections of your code. By choosing to work
 on specific sections of your code, you can write more specific `commit`
-messages. You can treat these commit messages as notes to yourself or
-your collaborators describing what you did. If you’re happy with your
-changes after making a series of commits, go ahead and `push`.
+messages. We can treat these commit messages as notes to ourselves or
+our collaborators describing what we did. If I’m happy with my changes
+after making a series of commits, then I’ll go ahead and `push`.
 
 I’ll be updating this repo with more information on how to use other
 `git` and `gh` commands!
+
+## GitHub organizations
+
+GitHub organizations give members access to each other’s code.
+Importantly, private repos included in the organization can only be seen
+by other members, allowing us to easily share insight and build off each
+other without having to make the repo prematurely public.
+
+At the moment, I think it’s easier to make everyone an owner in the
+organization. This allows members to start the repo anywhere and still
+associate the repo with the BusbyLab organization. Because owners have
+access to all the repos in the organization, we need to be careful to
+not accidentally disturb each other’s repos. Thankfully, this is very
+hard to do. Further, since git + GitHub tracks all changes, no change
+should be a surprise and changes can be easily rolled back.
+
+I think this is currently the best way to use organizations:
+
+1.  Create a `Private` repo using your personal GitHub account.
+2.  Fork that repo to the `BusbyLab` organization. <br> <br>
+    ![repo](data/repo.png) <br> <br> ![fork](data/fork.png) <br> <br>
+3.  If the `Private` repo changes later, the `BusbyLab` fork can just
+    sync those changes. I see this as the more common use case.
+4.  If a change is made on the `BusbyLab` fork, this change can be
+    suggested to the user’s personal `Private` repo. <br> <br>
+    ![fork](data/sync-con.png) <br> <br> We can consider removing
+    ownership privileges after a certain point, but it might help to set
+    everyone as an owner for a trial period. If individuals have their
+    own `Private` repos that are just forked into `BusbyLab`, those
+    personal `Private` repos can always be used as recovery points.
 
 ## Reproducibility
 
